@@ -8,7 +8,7 @@
 
 void handle_request(int nfd)
 {
-   FILE *network = fdopen(nfd, "r");
+   FILE *network = fdopen(nfd, "r+");
    char *line = NULL;
    size_t size;
    ssize_t num;
@@ -22,7 +22,7 @@ void handle_request(int nfd)
 
    while ((num = getline(&line, &size, network)) >= 0)
    {
-      printf("%s", line);
+      write(nfd, line, num);
    }
 
    free(line);

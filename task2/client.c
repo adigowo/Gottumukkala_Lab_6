@@ -35,8 +35,19 @@ void send_request(int fd)
    while ((num = getline(&line, &size, stdin)) >= 0)
    {
       write(fd, line, num);
-   }
 
+      char buffer[1024];
+
+      ssize_t readBytes = read(fd, buffer, sizeof(buffer) - 1);
+
+      if (readBytes > 0) {
+
+          buffer[readBytes] = '\0'; 
+          printf("%s", buffer); 
+
+      }
+   }
+   
    free(line);
 }
 
